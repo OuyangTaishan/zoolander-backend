@@ -1,9 +1,7 @@
 package de.zoolanderbackend.user;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name="_USER") // "user" is reserved in h2 database

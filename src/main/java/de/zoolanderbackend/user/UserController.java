@@ -2,8 +2,7 @@ package de.zoolanderbackend.user;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class UserController {
     }
 
     @PostConstruct
-    public void createDummy() {
+    public void createDummyUsers() {
         User user1 = new User(1L, "Sandro", "password", 24);
         User user2 = new User(2L, "Tim", "password", 38);
         User user3 = new User(3L, "Tayo", "password", 40);
@@ -30,7 +29,7 @@ public class UserController {
     }
 
     // get & post methods
-    @GetMapping("/api/profile")
+    @GetMapping("/api/users")
     public List<User> show() {
         return userRepo.findAll();
     }
