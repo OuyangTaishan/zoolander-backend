@@ -20,3 +20,11 @@ String uri = "https://homepage.com/data";
         return "" + obj.getId();
     }
 ```
+
+### H2 limits the size of table cells, so how to overcome it?
+```java
+@Lob // large object
+@Column(length = 1000)
+```
+
+

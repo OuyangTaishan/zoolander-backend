@@ -1,7 +1,10 @@
 package de.zoolanderbackend.user;
 
+import de.zoolanderbackend.post.Post;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name="_USER") // "user" is reserved in h2 database
@@ -17,4 +20,7 @@ public class User {
     private String name;
     private String password;
     private int age;
+
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts;
 }

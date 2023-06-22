@@ -1,10 +1,11 @@
 package de.zoolanderbackend.post;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import de.zoolanderbackend.comment.Comment;
+import de.zoolanderbackend.user.User;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(force = true)
@@ -20,5 +21,11 @@ public class Post {
     @Setter
     @NonNull
     private String postLink;
+
+    @ManyToOne
+    User user;
+
+    @OneToMany(mappedBy = "post", cascade = {CascadeType.ALL}) // delete all comments with their post
+    private List<Comment> comments;
 
 }

@@ -1,5 +1,7 @@
 package de.zoolanderbackend.comment;
 
+import de.zoolanderbackend.post.Post;
+import de.zoolanderbackend.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,6 +16,11 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String text;
-    // User user; "basic attribute should not be persistence entity"
+
+    @ManyToOne
+    User user;
+
+    @ManyToOne
+    Post post;
 
 }
