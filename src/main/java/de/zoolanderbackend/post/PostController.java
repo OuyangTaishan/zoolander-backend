@@ -27,14 +27,15 @@ public class PostController {
         postRepo.save(new Post("https://youtu.be/CQ5dRyyHwfM"));
     }
 
-    @GetMapping("/api/post")
+    @GetMapping("/api/posts")
     public List<Post> read() {
         return postRepo.findAll();
     }
 
-    /*@PostMapping("/api/post")
-    public Post write(@RequestBody Post post) {
-        return post;
-    }*/
+    @PostMapping("/api/posts")
+    public List<Post> write(@RequestBody Post post) {
+        postRepo.save(post);
+        return read();
+    }
 
 }
