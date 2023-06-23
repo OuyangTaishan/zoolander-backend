@@ -2,10 +2,13 @@ package de.zoolanderbackend.comment;
 
 import de.zoolanderbackend.post.Post;
 import de.zoolanderbackend.user.User;
+import de.zoolanderbackend.post.PostRepo;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +18,31 @@ public class CommentController {
 
     // fields
     CommentRepo commentRepo;
+    PostRepo postRepo;
 
     // constructor
     @Autowired
-    public CommentController(CommentRepo commentRepo) {
+    public CommentController(CommentRepo commentRepo, PostRepo postRepo) {
         this.commentRepo = commentRepo;
+        this.postRepo = postRepo;
     }
+
+    // get & post methods
+    @GetMapping("/api/comments")
+    public List<Comment> show() {
+        return commentRepo.findAll();
+    }
+
+    @PostMapping("/api/{postId}")
+    public List<Comment> storeComment(@PathVariable String postId) { // still missing the comment writer
+        Post post = postRepo.findById(Long.parseLong(postId)).get();
+        Comment comment = new Comment();
+        comment.setPost(post); // gegenseitig bekanntmachen auf Java-Ebene
+        post.getComments().add(comment);
+        postRepo.save(post); // store in DB
+        return show();
+    }
+}
 
 //    @PostConstruct
 //    public void createDummyComments() {
@@ -32,10 +54,3 @@ public class CommentController {
 //        commentRepo.save(comment2);
 //
 //    }
-
-    // get & post methods
-    @GetMapping("/api/comments")
-    public List<Comment> show() {
-        return commentRepo.findAll();
-    }
-}

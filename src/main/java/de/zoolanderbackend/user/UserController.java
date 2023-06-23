@@ -37,4 +37,10 @@ public class UserController {
     public List<User> show() {
         return userRepo.findAll();
     }
+
+    @PostMapping("/api/users")
+    public List<User> save(@RequestBody User newUser) {
+        userRepo.save(newUser);
+        return show();
+    }
 }
