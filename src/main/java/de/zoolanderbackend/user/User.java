@@ -1,10 +1,9 @@
 package de.zoolanderbackend.user;
 
-import de.zoolanderbackend.post.Post;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name="_USER") // "user" is reserved in h2 database
@@ -13,14 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 public class User {
 
-    // fields
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID userID;
     private String name;
     private String password;
-    private int age;
 
-    @OneToMany(mappedBy = "user")
-    private List<Post> posts;
 }

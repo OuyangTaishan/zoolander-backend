@@ -2,5 +2,7 @@ package de.zoolanderbackend.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepo extends JpaRepository<User, Long> {
+import java.util.UUID;
+
+public interface UserRepo extends JpaRepository<User, UUID> {
 }

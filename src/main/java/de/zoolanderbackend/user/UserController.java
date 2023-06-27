@@ -1,35 +1,29 @@
 package de.zoolanderbackend.user;
 
-import de.zoolanderbackend.post.Post;
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
+@RequiredArgsConstructor
 public class UserController {
 
     // fields
-    UserRepo userRepo;
-
-    // constructor
-    @Autowired
-    public UserController(UserRepo userRepo) {
-        this.userRepo = userRepo;
-    }
+    private final UserRepo userRepo;
 
     @PostConstruct
     public void createDummyUsers() {
-        List<Post> posts = new ArrayList();
-        User user1 = new User(1L, "Sandro", "password", 24, posts);
-        User user2 = new User(2L, "Tim", "password", 38, posts);
-        User user3 = new User(3L, "Tayo", "password", 40, posts);
-        userRepo.save(user1);
-        userRepo.save(user2);
-        userRepo.save(user3);
+        User sandro = new User(UUID.randomUUID(), "Sandro", "password");
+        User tim = new User(UUID.randomUUID(), "Tim", "password");
+        User tayo = new User(UUID.randomUUID(), "Tayo", "password");
+        userRepo.save(sandro);
+        userRepo.save(tim);
+        userRepo.save(tayo);
     }
 
     // get & post methods

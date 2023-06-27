@@ -6,26 +6,22 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
-@NoArgsConstructor(force = true)
-@RequiredArgsConstructor
-@AllArgsConstructor
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Post {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Setter
-    @NonNull
-    private String postLink;
+    private UUID postID;
+    private String link;
 
     @ManyToOne
     User user;
 
-    @OneToMany(mappedBy = "post", cascade = {CascadeType.ALL}) // delete all comments with their post
+    @OneToMany
     private List<Comment> comments;
 
 }

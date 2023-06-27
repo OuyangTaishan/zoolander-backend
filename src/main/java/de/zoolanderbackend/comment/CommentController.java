@@ -1,31 +1,25 @@
 package de.zoolanderbackend.comment;
 
 import de.zoolanderbackend.post.Post;
-import de.zoolanderbackend.user.User;
 import de.zoolanderbackend.post.PostRepo;
-import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
+import de.zoolanderbackend.user.UserRepo;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
+@RequiredArgsConstructor
 public class CommentController {
 
     // fields
-    CommentRepo commentRepo;
-    PostRepo postRepo;
-
-    // constructor
-    @Autowired
-    public CommentController(CommentRepo commentRepo, PostRepo postRepo) {
-        this.commentRepo = commentRepo;
-        this.postRepo = postRepo;
-    }
+    private final CommentRepo commentRepo;
+    private final PostRepo postRepo;
+    private final UserRepo userRepo;
 
     // get & post methods
     @GetMapping("/api/comments")
@@ -33,24 +27,16 @@ public class CommentController {
         return commentRepo.findAll();
     }
 
-    @PostMapping("/api/{postId}")
-    public List<Comment> storeComment(@PathVariable String postId) { // still missing the comment writer
-        Post post = postRepo.findById(Long.parseLong(postId)).get();
-        Comment comment = new Comment();
-        comment.setPost(post); // gegenseitig bekanntmachen auf Java-Ebene
+    @PostMapping("/api/comment")
+    public ResponseEntity postComment(@RequestBody CommentDTO commentDTO) {
+        // create new Comment and save to CommentRepo
+        System.out.println(commentDTO.text);
+        Comment comment = new Comment(UUID.randomUUID(), commentDTO.text, userRepo.findById(commentDTO.authorID).get());
+        commentRepo.save(comment);
+        // retrieve Post from DB, add Comment to it, and save the updated Post
+        Post post = postRepo.findById(commentDTO.postID).get();
         post.getComments().add(comment);
-        postRepo.save(post); // store in DB
-        return show();
+        postRepo.save(post);
+        return new ResponseEntity(comment, HttpStatus.OK);
     }
 }
-
-//    @PostConstruct
-//    public void createDummyComments() {
-//        List<Post> posts = new ArrayList();
-//        User dummy = new User(99L, "nobody", "password", 99, posts);
-//        Comment comment1 = new Comment(1L, "our first comment", dummy);
-//        Comment comment2 = new Comment(2L, "our second comment", dummy);
-//        commentRepo.save(comment1);
-//        commentRepo.save(comment2);
-//
-//    }
