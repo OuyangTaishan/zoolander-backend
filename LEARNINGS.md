@@ -48,3 +48,34 @@ String uri = "https://homepage.com/data";
 - entsprechend ist mir auch noch unklar wie man im Angular einen neuen *Comment* schreibt, bei dem `User author` und `Post post` direkt verknüpft sind
 - geht das über @Injection?
 - der `User author` müsste sich über den `sessionService` regeln lasssen, von dem Patrick vorhin gesprochen hat (oder ein ähnlicher Weg ohne zusätzliche *Component*)
+
+### @Entity vs. DTOs
+- Mir ist gerade erst klargeworden, dass es viel mehr DTOs gibt als @Entitys (= Einträge in SQL-Tabellen).
+- Der "Logger" fragt mit username und password an, ob er Zugangsrechte bekommen kann.
+- Der Logger selbst ist kein vollständiger User und was zurückkommen sollte, ist definitiv keine Liste aller User!!!
+- Minimal braucht das frontend erstmal eigentlich nur eine userID und ein "HttpRequest.OK".
+- Maximal könnte jetzt das gesamte Profil verschickt werden, aber eben nur von EINEM User.
+- In jedem Fall braucht es noch ein weiteres DTO um zwischen ProfileOwn und ProfileOther zu unterscheiden, denn im ProfileOther sollte nie das Passwort mitgeschickt werden.
+- In Video-Posts braucht man keinen "Logger" mit username und passwort, sondern eigentlich nur username und userID.
+- Zum Mitschreiben:
+  - der User hat
+    - userID
+    - username
+    - password
+  - der Logger hat nur
+    - username
+    - password
+  - das Profil hat nur
+    - userID
+    - username
+- Mit der userID (oder einem unique username) sollte man auf die Profil-Seite des users gehen können.
+- Dort gibt es zahlreiche zusätzliche Informationen wie:
+  - List<Post>
+  - List<Comment>
+  - Anzahl Posts
+  - Anzahl Comments
+  - Anzahl Follower
+  - Anzahl Following
+  - Bio (Kurzbeschreibung / Motto)
+  - unique Icon
+- Und es stellt sich die Frage, ob die alle im Profil gespeichert werden sollten. Die Posts und Comments sicher nur auf Anfrage.

@@ -1,10 +1,10 @@
 package de.zoolanderbackend.comment;
 
-import lombok.Data;
+import lombok.Getter;
 
 import java.util.UUID;
 
-@Data
+@Getter
 public class CommentDTO {
 
     String text;

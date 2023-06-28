@@ -14,7 +14,7 @@ public class User {
 
     @Id
     private UUID userID;
-    private String name;
+    private String username;
     private String password;
 
 }
