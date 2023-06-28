@@ -55,7 +55,8 @@ public class PostController {
     }
 
     @PostMapping("/api/posts")
-    public List<Post> write(@RequestBody Post post) {
+    public List<Post> write(@RequestBody PostRequest postRequest) {
+        Post post = new Post(UUID.randomUUID(), postRequest.getLink(), userRepo.findById(UUID.fromString(postRequest.getPosterID())).get(), new ArrayList<>());
         postRepo.save(post);
         return read();
     }
