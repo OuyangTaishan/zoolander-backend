@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class PostRequest {
 
-    String posterID;
-    String link;
+    private String posterID;
+    private String link;
 
 }

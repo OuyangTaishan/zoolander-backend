@@ -28,15 +28,23 @@ public class CommentController {
     }
 
     @PostMapping("/api/comment")
-    public ResponseEntity postComment(@RequestBody CommentDTO commentDTO) {
+    public List<Comment> postComment(@RequestBody NewCommentRequest newCommentRequest) {
         // create new Comment and save to CommentRepo
-        System.out.println(commentDTO.text);
-        Comment comment = new Comment(UUID.randomUUID(), commentDTO.text, userRepo.findById(commentDTO.authorID).get());
+        UUID authorID = UUID.fromString(newCommentRequest.getAuthorID());
+        Comment comment = new Comment(UUID.randomUUID(), newCommentRequest.getText(), userRepo.findById(authorID).get());
         commentRepo.save(comment);
         // retrieve Post from DB, add Comment to it, and save the updated Post
-        Post post = postRepo.findById(commentDTO.postID).get();
+        Post post = postRepo.findById(UUID.fromString(newCommentRequest.getPostID())).get();
         post.getComments().add(comment);
         postRepo.save(post);
-        return new ResponseEntity(comment, HttpStatus.OK);
+        return post.getComments();
+    }
+
+    @PostMapping("/api/post/comments")
+    public List<Comment> getCommentsForPost(@RequestBody CommentsRequest commentsRequest) {
+        UUID postID = UUID.fromString(commentsRequest.getPostID());
+        Post post = postRepo.findById(postID).get();
+        System.out.println("fetching comments for specific post...");
+        return post.getComments();
     }
 }
