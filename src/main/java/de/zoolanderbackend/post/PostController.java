@@ -61,4 +61,9 @@ public class PostController {
         return read();
     }
 
+    @GetMapping("/api/{id}")
+    public Post getPostById(@PathVariable(name = "id") String id) {
+        return postRepo.findById(UUID.fromString(id)).get();
+    }
+
 }

@@ -40,6 +40,7 @@ public class CommentController {
         return post.getComments();
     }
 
+    // obsolete, because of a better method in PostController
     @PostMapping("/api/post/comments")
     public List<Comment> getCommentsForPost(@RequestBody CommentsRequest commentsRequest) {
         UUID postID = UUID.fromString(commentsRequest.getPostID());
