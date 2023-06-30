@@ -16,16 +16,6 @@ public class UserController {
     // fields
     private final UserRepo userRepo;
 
-    @PostConstruct
-    public void createDummyUsers() {
-        User sandro = new User(UUID.randomUUID(), "Sandro", "password");
-        User tim = new User(UUID.randomUUID(), "Tim", "password");
-        User tayo = new User(UUID.randomUUID(), "Tayo", "password");
-        userRepo.save(sandro);
-        userRepo.save(tim);
-        userRepo.save(tayo);
-    }
-
     // get & post methods
 //    @GetMapping("/api/users")
 //    public List<User> show() {
