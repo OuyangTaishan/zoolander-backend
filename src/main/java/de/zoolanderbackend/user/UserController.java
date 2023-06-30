@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://mhmfrost.github.io/zooland/")
 @RequiredArgsConstructor
 public class UserController {
 
