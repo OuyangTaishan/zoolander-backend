@@ -40,14 +40,14 @@ public class PostController {
         Comment unblief = new Comment(UUID.randomUUID(), "Wenn der Papagei nicht sprechen könnte, hätt' ich's ihm nicht geglaubt!", tayo);
         commentRepo.save(counting);
         commentRepo.save(unblief);
-        Post parrot = new Post(UUID.randomUUID(), "https://youtu.be/ozgcKw4MyvY", lars, new ArrayList<>());
+        Post parrot = new Post(UUID.randomUUID(), "https://youtu.be/ozgcKw4MyvY", lars, new ArrayList<>(), new ArrayList<>());
         parrot.getComments().add(counting);
         parrot.getComments().add(unblief);
         postRepo.save(parrot);
 
         Comment names = new Comment(UUID.randomUUID(), "Wie bitte? Delphine ham Namen? Wer gibt ihnen denn ihren Namen? Die Eltern?", anne);
         commentRepo.save(names);
-        Post dolphin = new Post(UUID.randomUUID(), "https://youtu.be/CQ5dRyyHwfM", anne, new ArrayList<>());
+        Post dolphin = new Post(UUID.randomUUID(), "https://youtu.be/CQ5dRyyHwfM", anne, new ArrayList<>(), new ArrayList<>());
         dolphin.getComments().add(names);
         postRepo.save(dolphin);
 
@@ -59,7 +59,7 @@ public class PostController {
         commentRepo.save(ancientGestures);
         commentRepo.save(kieken);
         commentRepo.save(lca);
-        Post baboon = new Post(UUID.randomUUID(), "https://youtu.be/dm8Q4fgv8Qo", carl, new ArrayList<>());
+        Post baboon = new Post(UUID.randomUUID(), "https://youtu.be/dm8Q4fgv8Qo", carl, new ArrayList<>(), new ArrayList<>());
         baboon.getComments().add(objectPermanence);
         baboon.getComments().add(ancientGestures);
         baboon.getComments().add(kieken);
@@ -68,33 +68,33 @@ public class PostController {
 
         Comment mygf = new Comment(UUID.randomUUID(), "I feel like my gf is doing a version of this, when she asks me whether I've been thinking of her a million times a day...", carl);
         commentRepo.save(mygf);
-        Post capuchin = new Post(UUID.randomUUID(), "https://youtu.be/Q74BB7aJWH0", tayo, new ArrayList<>());
+        Post capuchin = new Post(UUID.randomUUID(), "https://youtu.be/Q74BB7aJWH0", tayo, new ArrayList<>(), new ArrayList<>());
         capuchin.getComments().add(mygf);
         postRepo.save(capuchin);
 
         Comment rescueCat = new Comment(UUID.randomUUID(), "That cat knows what it's doing! Clearly treating the kid as a family member!", sandro);
         commentRepo.save(rescueCat);
-        Post cat1 = new Post(UUID.randomUUID(), "https://youtu.be/7jB31L7K4qE", anne, new ArrayList<>());
+        Post cat1 = new Post(UUID.randomUUID(), "https://youtu.be/7jB31L7K4qE", anne, new ArrayList<>(), new ArrayList<>());
         cat1.getComments().add(rescueCat);
 
         Comment twinspeak = new Comment(UUID.randomUUID(), "Best example I've seen of humans developing sentence melody before words. These babies have sth to say!", tim);
         Comment socks = new Comment(UUID.randomUUID(), "Digga, das hat mich voll aus den Socken gehauen!", sandro);
         commentRepo.save(twinspeak);
         commentRepo.save(socks);
-        Post twins = new Post(UUID.randomUUID(), "https://youtu.be/5gocFvDFFT4", lars, new ArrayList<>());
+        Post twins = new Post(UUID.randomUUID(), "https://youtu.be/5gocFvDFFT4", lars, new ArrayList<>(), new ArrayList<>());
         twins.getComments().add(twinspeak);
         twins.getComments().add(socks);
         postRepo.save(twins);
 
         Comment chill = new Comment(UUID.randomUUID(), "Spider building hammock on THC... - so relatable ♡", lars);
         commentRepo.save(chill);
-        Post spider = new Post(UUID.randomUUID(), "https://youtube.com/shorts/Wd-cOD6qsRU", sandro, new ArrayList<>());
+        Post spider = new Post(UUID.randomUUID(), "https://youtube.com/shorts/Wd-cOD6qsRU", sandro, new ArrayList<>(), new ArrayList<>());
         spider.getComments().add(chill);
         postRepo.save(spider);
 
         Comment gameTheory = new Comment(UUID.randomUUID(), "The fact that the fish stops attacking when his 'friend' stops shows that it is taking a game theoretic decision making approach almost like fairness.", tayo);
         commentRepo.save(gameTheory);
-        Post fish = new Post(UUID.randomUUID(), "https://youtu.be/GxXWpiDd_7c", carl, new ArrayList<>());
+        Post fish = new Post(UUID.randomUUID(), "https://youtu.be/GxXWpiDd_7c", carl, new ArrayList<>(), new ArrayList<>());
         fish.getComments().add(gameTheory);
         postRepo.save(fish);
 
@@ -107,7 +107,7 @@ public class PostController {
 
     @PostMapping("/api/posts")
     public List<Post> write(@RequestBody PostRequest postRequest) {
-        Post post = new Post(UUID.randomUUID(), postRequest.getLink(), userRepo.findById(UUID.fromString(postRequest.getPosterID())).get(), new ArrayList<>());
+        Post post = new Post(UUID.randomUUID(), postRequest.getLink(), userRepo.findById(UUID.fromString(postRequest.getPosterID())).get(), new ArrayList<>(), new ArrayList<>());
         postRepo.save(post);
         return read();
     }

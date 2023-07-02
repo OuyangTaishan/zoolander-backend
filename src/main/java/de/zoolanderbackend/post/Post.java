@@ -1,6 +1,7 @@
 package de.zoolanderbackend.post;
 
 import de.zoolanderbackend.comment.Comment;
+import de.zoolanderbackend.like.Like;
 import de.zoolanderbackend.user.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -23,5 +24,8 @@ public class Post {
 
     @OneToMany
     private List<Comment> comments;
+
+    @OneToMany
+    private List<Like> likes;
 
 }
